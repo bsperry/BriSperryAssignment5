@@ -9,8 +9,8 @@ using assignment5.Models;
 namespace assignment5.Migrations
 {
     [DbContext(typeof(BookDbContext))]
-    [Migration("20210218020523_PhaseUpdate")]
-    partial class PhaseUpdate
+    [Migration("20210225023428_assignment6Migration")]
+    partial class assignment6Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,6 +38,9 @@ namespace assignment5.Migrations
                     b.Property<string>("ISBN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Pages")
+                        .HasColumnType("int");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");

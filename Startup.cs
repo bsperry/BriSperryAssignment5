@@ -57,9 +57,24 @@ namespace assignment5
 
             app.UseEndpoints(endpoints =>
             {
+                //for category filter endpoints
+                endpoints.MapControllerRoute("catpage", "{category}/{page:int}",
+                    new { Controller = "Home", action = "Index" });
+
+                endpoints.MapControllerRoute("page", "{page:int}",
+                    new { Controller = "Home", action = "Index" });
+
+                endpoints.MapControllerRoute("catpage", "{category}",
+                    new { Controller = "Home", action = "Index", page = 1 });
+
+                //For page number
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    "pagination",
+                    "/P{page}",
+                    new { Controller = "Home", action = "Index" });
+                
+                endpoints.MapDefaultControllerRoute(); 
+
             });
 
             SeedData.EnsurePopulated(app);
