@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using assignment5.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,10 +30,17 @@ namespace assignment5
 
             services.AddDbContext<BookDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:OnlineBooksConnection"]);
+                options.UseSqlite(Configuration["ConnectionStrings:OnlineBooksConnection"]);
             });
 
             services.AddScoped<IBookRepository, EFBookRespository>();
+
+            //for razorpages
+            services.AddRazorPages();
+            //for session and creating the cache for the session
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
         }
 
         // This method gets called by the runtime. Use this method to configuAre the HTTP request pipeline.
@@ -50,7 +58,7 @@ namespace assignment5
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
@@ -73,11 +81,15 @@ namespace assignment5
                     "/P{page}",
                     new { Controller = "Home", action = "Index" });
                 
-                endpoints.MapDefaultControllerRoute(); 
+                endpoints.MapDefaultControllerRoute();
+
+                endpoints.MapRazorPages();
 
             });
 
             SeedData.EnsurePopulated(app);
+
+          
         }
     }
 }

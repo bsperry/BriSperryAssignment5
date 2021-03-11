@@ -1,0 +1,49 @@
+﻿@page
+@model assignment5.Pages.ShoppingCartModel
+@{
+}
+
+<h2>Your Shopping Cart</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Quantiy</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var line in Model.Cart.Lines)
+        {
+        <tr>
+            <td class="text-left">@line.Book.Title</td>
+            <td class="text-center">@line.Quantity</td>
+            <td class="text-right">@line.Book.Price</td>
+            <td class="text-right">@((line.Quantity * line.Book.Price).ToString("c"))</td>
+            <td class="text-right">
+                <form asp-page-handler ="Remove" method="post">
+                    <input type="hidden" name="BookId" value="@line.Book.Bookid"/>
+                    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl"/>
+                    <button type="submit" class="btn btn-sn btn-danger">Remove</button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total: </td>
+            <td class="text-right">@Model.Cart.ComputeCartTotal(Model.Cart.Lines).ToString("c")</td>
+        </tr>
+
+    </tfoot>
+    
+</table>
+
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Continue Shopping</a>
+</div>

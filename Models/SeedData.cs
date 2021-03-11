@@ -14,11 +14,11 @@ namespace assignment5.Models
         {
             BookDbContext context = application.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<BookDbContext>();
 
-            if(context.Database.GetPendingMigrations().Any())
+            if (context.Database.GetPendingMigrations().Any())
             {
                 context.Database.Migrate();
             }
-            if(!context.Books.Any())
+            if (!context.Books.Any())
             {
                 context.Books.AddRange(
                     new Book

@@ -4,21 +4,13 @@
 
 @model ProjectListViewModel
 
+
 <header>
 </header>
 
 @foreach (var x in Model.Books)
 {
-<div>
-    <h4>@x.Title</h4>
-    <h5>Bookid: @x.Bookid</h5>
-    <h5>Author: @x.Author</h5>
-    <h5>Publisher: @x.Publisher</h5>
-    <h5>ISBN: @x.ISBN</h5>
-    <h5>Category: @x.Category</h5>
-    <h5>Price: @x.Price</h5>
-</div>
-<br />
+    <partial name="BookSummary" model="x" />
 }
 
 <div page-model="@Model.PagingInfo" page-action="Index"
