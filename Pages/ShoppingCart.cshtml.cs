@@ -45,13 +45,6 @@ namespace assignment5.Pages
             return RedirectToPage(new { returnUrl = returnUrl });
         }
 
-        //to remove a book
-        public IActionResult OnPostRemove(long Bookid, string returnUrl)
-        {
-            Cart.RemoveBook(Cart.Lines.First(b => b.Book.Bookid == Bookid)
-                .Book);
-            return RedirectToPage(new { returnUrl = returnUrl }); 
-        }
 
     }
 }

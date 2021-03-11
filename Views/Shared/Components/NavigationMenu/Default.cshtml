@@ -5,7 +5,7 @@
 }
 @model IEnumerable<string>
 
-@model assignment5.Pages.ShoppingCartModel
+
 
 <a class="btn btn-block btn-outline-secondary"
    asp-action="Index"
@@ -25,4 +25,3 @@
 </a>
 }
 
-<a>@Model.Cart.ComputeCartTotal(Model.Cart.Lines).ToString("c")</a>
